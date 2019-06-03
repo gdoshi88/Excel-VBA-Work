@@ -1,0 +1,33 @@
+Sub StockTickerData():
+    Dim tickerName, currentValue, nextValue As String
+    Dim totalVolume As Long
+    Dim summaryTableRow As Integer
+    Dim lastRow As String
+
+    Cells(1, 10) = "Ticker Name"
+    Cells(1, 11) = "Ticker Total"
+    
+    totalvolume = 0
+    summaryTableRow = 2
+    lastRow = Cells(Rows.Count, 1).End(xlUp).Row
+
+
+    For i = 2 to lastRow
+        currentValue = Cells(i, 1).Value
+        nextValue = Cells(i + 1, 1).Value
+
+        If currentValue <> nextValue Then
+            tickerName = currentValue
+            totalVolume = totalVolume + Cells(i, 7).Value
+
+            Range("J" & summaryTableRow).Value = tickerName
+            Range("K" & summaryTableRow).Value = totalVolume
+
+            summaryTableRow = summaryTableRow + 1
+            totalVolume = 0
+                
+        End If
+
+    Next i 
+
+End Sub
